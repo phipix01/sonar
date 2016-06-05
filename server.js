@@ -1,4 +1,5 @@
 var express = require('express')
+var useragent = require('express-useragent')
 var qr = require('qr-image')
 
 var app = express()
@@ -9,16 +10,20 @@ app.set('views', __dirname + '/views')
 app.set('view engine', 'jade')
 
 // app.use(express.static(path.join(__dirname, 'views')))
+app.use(useragent.express())
 
 app.get('/', (req, res) => {
+  let { useragent } = req
   // if client is desktop
-  if (true) {
-    res.render('index', { youAreUsingJade: true })
+  if (useragent.isDesktop) {
+    res.render('index', { useragent })
+  }else if (useragent.isMobile) {
+    res.render('mobile', { useragent })
   }
 })
 
 app.get('/qr', function(req, res) {
-  var code = qr.image(new Date().getTime(), { type: 'svg' })
+  let code = qr.image(new Date().getTime(), { type: 'svg' })
   res.type('svg')
   code.pipe(res)
 })

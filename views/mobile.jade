@@ -7,9 +7,10 @@ html(lang="en")
          bar(1 + 5)
       }
   body
-  h1 Welcome to Sonar
+    h1 Welcome to Sonar
     #container.col
       p Seems like you're using #{useragent.browser} on #{useragent.platform}
+      p to join a game please scan the QR code on your desktop client
       if youAreUsingJade
         p You are amazing
       else
@@ -19,4 +20,3 @@ html(lang="en")
         templating language with a
         strong focus on performance
         and powerful features.
-      img(src='/qr')
